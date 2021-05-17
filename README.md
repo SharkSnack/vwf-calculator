@@ -2,6 +2,10 @@
 
 A small app that calculates line widths for games that use variable width fonts.
 
+## Width Definition
+
+Widths are defined as a JSON file in src/json.
+
 ## Preview Feature
 
 Currently only implemented for Shiren 4+ (PSP version).
