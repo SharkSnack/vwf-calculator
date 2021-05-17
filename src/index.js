@@ -15,10 +15,10 @@ class Preview extends React.Component {
           html.push(`<br/>`);
           // Lines after the first have 4 spaces of indentation
           for (let i = 0; i < 4; i++) {
-            html.push(`<img class="glyph" src="/font/shiren4/32.png" />`);
+            html.push(`<img class="glyph" src="./font/shiren4/32.png" />`);
           }
         } else {
-          html.push(`<img class="glyph" src="/font/shiren4/${char.charCodeAt(0)}.png" />`);
+          html.push(`<img class="glyph" src="./font/shiren4/${char.charCodeAt(0)}.png" />`);
         }
       }
     }
