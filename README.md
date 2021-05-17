@@ -2,6 +2,8 @@
 
 A small app that calculates line widths for games that use variable width fonts.
 
+Link: https://sharksnack.github.io/vwf-calculator/
+
 ## Width Definition
 
 Widths are defined as a JSON file in src/json.
