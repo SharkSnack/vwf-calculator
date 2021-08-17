@@ -89,20 +89,44 @@ class VWFCalc extends React.Component {
 
   handleTextAreaChange(event) {
 
-    function calcLineWidth(lookupObj, line) {
+    function calcLineWidth(game, lookupObj, line) {
       let width = 0;
-      for (const char of line) {
-        width += lookupObj[char];
+      if (game === 'shiren2') {
+        width = 4; // starts with 4 pixels padding
+        for (const char of line) {
+          width += lookupObj[char] + 2; // 2 pixels between each character
+        }
+        if (width > 4) {
+          width -= 2; // last character doesn't have 2 pixels padding
+        } else {
+          width = 0; // set width to 0 if there are no characters
+        }
+      } else {
+        for (const char of line) {
+          width += lookupObj[char];
+        }
       }
       return width;
+    }
+    function checkWidthLimit(widths, game, lookupObj) {
+      if (game === 'shiren2') {
+        for (let i = 0; i < widths.length; i++) {
+          if (widths[i] > lookupObj["_window"]) {
+            widths[i] = "[Too long!]";
+          }
+        }
+      }
     }
     // recalculate widths
     let lines = event.target.value.split('\n');
     let widths = [];
 
     for (const line of lines) {
-      widths.push( calcLineWidth(this.state.lookupObj, line) );
+      widths.push( calcLineWidth(this.state.game, this.state.lookupObj, line) );
     }
+    // Warn for lines that are too long
+    checkWidthLimit(widths, this.state.game, this.state.lookupObj);
+
     this.setState({
       textArea: event.target.value,
       charCount: event.target.value.length,
@@ -131,7 +155,7 @@ class VWFCalc extends React.Component {
         <br/>
         <Preview text={text} game={game}/>
         <p>Result (<span>{charCount}</span> chars):</p>
-        <pre>{widths}</pre>
+        <pre className="widthResult">{widths}</pre>
       </div>
     );
   }

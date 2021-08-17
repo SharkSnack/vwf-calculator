@@ -25,3 +25,7 @@ code {
 .glyph {
   float: left;
 }
+
+.widthResult {
+  white-space: pre-line;
+}
