@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import shiren2Widths from './json/shiren2.json';
 import shiren4Widths from './json/shiren4.json';
+import shirenDS2Widths from './json/shirenDS2.json';
 
 class Preview extends React.Component {
   renderPreview() {
@@ -22,6 +23,22 @@ class Preview extends React.Component {
         }
       }
     }
+    // Shiren DS2 (Nintendo DS)
+    else if (this.props.game === 'shirenDS2') {
+      // First line is indented by 1 space
+      html.push(`<img class="glyph" src="./font/shirenDS2/32.png" />`)
+      for (const char of this.props.text) {
+        if (char === '\n') {
+          html.push(`<br/>`);
+          // Lines after the first have 4 spaces of indentation
+          for (let i = 0; i < 4; i++) {
+            html.push(`<img class="glyph" src="./font/shirenDS2/32.png" />`);
+          }
+        } else {
+          html.push(`<img class="glyph" src="./font/shirenDS2/${char.charCodeAt(0)}.png" />`);
+        }
+      }
+    }
 
     return html.join('\n');
   }
@@ -32,6 +49,13 @@ class Preview extends React.Component {
         <div>
           <p>Preview:</p>
           <div className="shiren4Preview" dangerouslySetInnerHTML={{__html: this.renderPreview()}}></div>
+        </div>
+      );
+    } else if (this.props.game === 'shirenDS2') {
+      return(
+        <div>
+          <p>Preview:</p>
+          <div className="shirenDS2Preview" dangerouslySetInnerHTML={{__html: this.renderPreview()}}></div>
         </div>
       );
     } else {
@@ -60,6 +84,9 @@ class VWFCalc extends React.Component {
         break;
       case 'shiren4':
         lookupObj = shiren4Widths;
+        break;
+      case 'shirenDS2':
+        lookupObj = shirenDS2Widths;
         break;
       default:
         // empty object
@@ -142,10 +169,11 @@ class VWFCalc extends React.Component {
 
     return (
       <div>
-        <h4>- Variable Width Font Calculator (v1.0) -</h4>
+        <h4>- Variable Width Font Calculator (v1.1) -</h4>
         <span>Preset: </span>
           <button onClick={() => this.handlePresetClick("shiren2")}>Shiren 2</button>
           <button onClick={() => this.handlePresetClick("shiren4")}>Shiren 4</button>
+          <button onClick={() => this.handlePresetClick("shirenDS2")}>Shiren DS2</button>
           <br/>
         <span>Custom: </span>
           <input type="file" onChange={(e) => this.handleFileUpload(e)}></input>

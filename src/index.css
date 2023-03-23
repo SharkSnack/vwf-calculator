@@ -22,6 +22,16 @@ code {
   border: 3px solid lightgray;
 }
 
+.shirenDS2Preview {
+  background-color: #7878d7;
+  width: 245px;
+  height: 55px;
+  padding-left: 2px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  border: 3px solid lightgray;
+}
+
 .glyph {
   float: left;
 }
