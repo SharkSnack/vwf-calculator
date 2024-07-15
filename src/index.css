@@ -32,6 +32,16 @@ code {
   border: 3px solid lightgray;
 }
 
+.netsalPreview {
+  background-color: #18186b;
+  width: 438px;
+  height: 60px;
+  padding-left: 2px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  border: 3px solid lightgray;
+}
+
 .glyph {
   float: left;
 }

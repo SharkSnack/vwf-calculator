@@ -4,6 +4,7 @@ import './index.css';
 import shiren2Widths from './json/shiren2.json';
 import shiren4Widths from './json/shiren4.json';
 import shirenDS2Widths from './json/shirenDS2.json';
+import netsalWidths from './json/netsal.json';
 
 class Preview extends React.Component {
   renderPreview() {
@@ -39,6 +40,19 @@ class Preview extends React.Component {
         }
       }
     }
+    // Shiren Monsters: Netsal (GBA)
+    else if (this.props.game === 'netsal') {
+      // First line is indented by 1 space
+      html.push(`<img class="glyph" src="./font/netsal/32.png" />`)
+      for (const char of this.props.text) {
+        if (char === '\n') {
+          html.push(`<br/>`);
+          html.push(`<img class="glyph" src="./font/netsal/32.png" />`)
+        } else {
+          html.push(`<img class="glyph" src="./font/netsal/${char.charCodeAt(0)}.png" />`);
+        }
+      }
+    }
 
     return html.join('\n');
   }
@@ -56,6 +70,13 @@ class Preview extends React.Component {
         <div>
           <p>Preview:</p>
           <div className="shirenDS2Preview" dangerouslySetInnerHTML={{__html: this.renderPreview()}}></div>
+        </div>
+      );
+    } else if (this.props.game === 'netsal') {
+      return(
+        <div>
+          <p>Preview:</p>
+          <div className="netsalPreview" dangerouslySetInnerHTML={{__html: this.renderPreview()}}></div>
         </div>
       );
     } else {
@@ -87,6 +108,9 @@ class VWFCalc extends React.Component {
         break;
       case 'shirenDS2':
         lookupObj = shirenDS2Widths;
+        break;
+      case 'netsal':
+        lookupObj = netsalWidths;
         break;
       default:
         // empty object
@@ -174,6 +198,7 @@ class VWFCalc extends React.Component {
           <button onClick={() => this.handlePresetClick("shiren2")}>Shiren 2</button>
           <button onClick={() => this.handlePresetClick("shiren4")}>Shiren 4</button>
           <button onClick={() => this.handlePresetClick("shirenDS2")}>Shiren DS2</button>
+          <button onClick={() => this.handlePresetClick("netsal")}>Netsal</button>
           <br/>
         <span>Custom: </span>
           <input type="file" onChange={(e) => this.handleFileUpload(e)}></input>
